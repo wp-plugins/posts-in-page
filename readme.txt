@@ -1,0 +1,60 @@
+=== Posts in Page ===
+Contributors: dgilfoy, ivycat
+Tags: widgets, sidebar, role based
+Requires at least: 3.0
+Tested up to: 3.1
+Stable tag: 1.0.0
+
+==Short Description ==
+
+Add posts loop inside page.
+
+==Description==
+Use a shortcode to add posts inside of a wordpress page.  Supports taxonomies, categories, tags and even custom post types.
+
+== Notes ==
+
+Plugin is depending upon theme styling.  Version 1.0 of this plugin does not contain native styles.  If you are curious as to the reasoning behind this, check out:  
+
+http://nimbu.in/p/wordcampseattle/
+
+This is a minimal plugin, function over form.  If you would like to extend it, or would like us to extend it in later versions, feel free to contact us at admins@ivycat.com.  We do custom plugins as well as upgrades and features for existing plugins.
+
+== Installation ==
+
+1. Upload the entire ic_posts_in_page directory to your plugins folder 
+2. Click Install Plugin in your WordPress plugin page
+3. ??? Profit ???
+
+== Usage ==
+
+Shortcode usage:
+[ic_add_posts]  - Add all posts to a page (limit to what number posts in wordpress is set to), essentially adds blog "page" to page.
+[ic_add_posts category='category-slug']  - Show posts within a specific category.  Uses slugs, can have multiple but separate by commas. category-1,category2, etc (no spaces.)
+[ic_add_posts post_type='post-type'] - Show posts that are a specific post type (only one post type right now)
+[ic_add_posts tax='taxonomy' term='term'] - limit posts to those that exist in a taxonomy and have a specific term.  Both are required for either one to work
+[ic_add_posts template='template-in-theme-dir.php'] - In case you want to style your markup, add meta data, etc.  Each shortcode can reference a different template.  These templates must exist in the theme directory.
+ 
+
+== Screenshots ==
+
+
+== Frequently Asked Questions ==
+
+Q: What is the point of this plugin?.  
+A: Well, some of our clients wanted to output some posts in a specific page without fiddling with templates.  This plugin goes well page specific sidebars and giving you
+a more granular control of sidebars on specific categories/post-types etc.
+
+== Changelog ==
+
+
+
+== Upgrade Notice ==
+
+Latest versions mean latest security, latest features and the best time!
+
+== Road Map ==
+
+1. Suggest a feature...
+
+
