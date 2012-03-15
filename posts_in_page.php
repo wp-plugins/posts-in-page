@@ -47,6 +47,7 @@ class AddPostsToPage{
     protected function set_args( $atts ){
         global $wp_query;
         $this->args = array( 'post_type' => (  $atts['post_type'] ) ? $atts['post_type'] : 'post' );
+        if( $atts['template'] ) $this->args['template'] = $atts['template'];
         if( $atts['category'] ){
             $cats = explode( ',', $atts['category'] );
             $this->args['category_name'] = ( count( $cats ) > 1 ) ? $cats : $atts['category'];
@@ -69,16 +70,23 @@ class AddPostsToPage{
     }
     
     protected function has_theme_template(){
-        $template_file = ( $this->args['template'] ) ? get_theme_root() . '/' . $this->args['template'] : get_theme_root() . '/posts_loop_template.php';
+        $template_file = ( $this->args['template'] ) ? self::current_theme_path()  . '/' . $this->args['template'] : self::current_theme_path() . '/posts_loop_template.php';
+        
         return ( file_exists( $template_file ) ) ? $template_file : false;
     }
     
    protected function add_template_part( $ic_posts ){
       $ic_posts->the_post();
       ob_start();
-      require ( $file_path = self::has_theme_template() ) ? $file_path : 'posts_loop_template.php';
+      require ( $file_path = self::has_theme_template() ) ? str_replace( site_url(), '', $file_path ) : 'posts_loop_template.php';
       $output .= ob_get_contents();
       return ob_get_clean();
    }
+    
+    protected function current_theme_path(){
+        $theme_data = explode( '/', get_bloginfo( 'stylesheet_directory' ) );
+        $theme_path = get_theme_root();
+        return $theme_path . '/' . $theme_data[ count( $theme_data ) -1 ];
+    }
     
 } new AddPostsToPage();
