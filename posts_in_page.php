@@ -3,14 +3,16 @@
     Plugin name: Posts in Page
     Author: dgilfoy, ivycat
     Description: Add Posts in page
-    Version: 1.0.0
+    Version: 1.0.1
     
     Shortcode usage:
     [ic_add_posts]  - Add all posts to a page (limit to what number posts in wordpress is set to), essentially adds blog "page" to page.
+    [ic_add_posts showposts=5] - limit number of posts (or override default setting)
     [ic_add_posts category='category-slug']  - Show posts within a specific category.  Uses slugs, can have multiple but separate by commas. category-1,category2, etc (no spaces.)
     [ic_add_posts post_type='post-type'] - Show posts that are a specific post type (only one post type right now)
     [ic_add_posts tax='taxonomy' term='term'] - limit posts to those that exist in a taxonomy and have a specific term.  Both are required for either one to work
     [ic_add_posts template='template-in-theme-dir.php'] - In case you want to style your markup, add meta data, etc.  Each shortcode can reference a different template.  These templates must exist in the theme directory.
+    Or any combination above.
 **/
 
 class AddPostsToPage{
@@ -64,6 +66,7 @@ class AddPostsToPage{
             $tags = explode( ',', $atts['category'] );
             $this->args['tag'] = ( count( $tags ) > 1 ) ? $tags : $atts['tag'];
         }
+        $this->args[ 'posts_per_page' ] = $atts['showposts'];
         if( $wp_query->query_vars['page'] > 1 ){
             $this->args['paged'] = $wp_query->query_vars['page'];
         }

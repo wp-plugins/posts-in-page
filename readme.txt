@@ -3,7 +3,7 @@ Contributors: dgilfoy, ivycat
 Tags: shortcode, pages, posts, custom post types
 Requires at least: 3.0
 Tested up to: 3.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 
 ==Short Description ==
 
@@ -30,11 +30,12 @@ This is a minimal plugin, function over form.  If you would like to extend it, o
 
 Shortcode usage:
 * [ic_add_posts]  - Add all posts to a page (limit to what number posts in wordpress is set to), essentially adds blog "page" to page.
+* [ic_add_posts showposts=5] - limit number of posts (or override default setting)
 * [ic_add_posts category='category-slug']  - Show posts within a specific category.  Uses slugs, can have multiple but separate by commas. category-1,category2, etc (no spaces.)
 * [ic_add_posts post_type='post-type'] - Show posts that are a specific post type (only one post type right now)
 * [ic_add_posts tax='taxonomy' term='term'] - limit posts to those that exist in a taxonomy and have a specific term.  Both are required for either one to work
 * [ic_add_posts template='template-in-theme-dir.php'] - In case you want to style your markup, add meta data, etc.  Each shortcode can reference a different template.  These templates must exist in the theme directory.
- 
+* Or any combination
 
 == Screenshots ==
 
