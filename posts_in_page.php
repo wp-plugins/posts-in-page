@@ -29,6 +29,7 @@ class AddPostsToPage{
             'post_type' => false,
             'tax' => false,
             'term' => false,
+            'showposts' => 10,
             'tag' => false,
             'template' => false
         ), $atts ) );
