@@ -3,7 +3,7 @@ Contributors: dgilfoy, ivycat
 Tags: shortcode, pages, posts, custom post types
 Requires at least: 3.0
 Tested up to: 3.1
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 
 ==Short Description ==
 
@@ -29,13 +29,15 @@ This is a minimal plugin, function over form.  If you would like to extend it, o
 == Usage ==
 
 Shortcode usage:
-* [ic_add_posts]  - Add all posts to a page (limit to what number posts in wordpress is set to), essentially adds blog "page" to page.
-* [ic_add_posts showposts=5] - limit number of posts (or override default setting)
-* [ic_add_posts category='category-slug']  - Show posts within a specific category.  Uses slugs, can have multiple but separate by commas. category-1,category2, etc (no spaces.)
-* [ic_add_posts post_type='post-type'] - Show posts that are a specific post type (only one post type right now)
-* [ic_add_posts tax='taxonomy' term='term'] - limit posts to those that exist in a taxonomy and have a specific term.  Both are required for either one to work
-* [ic_add_posts template='template-in-theme-dir.php'] - In case you want to style your markup, add meta data, etc.  Each shortcode can reference a different template.  These templates must exist in the theme directory.
-* Or any combination
+    * [ic_add_posts]  - Add all posts to a page (limit to what number posts in wordpress is set to), essentially adds blog "page" to page.
+    * [ic_add_posts post_type='post_type' ids='1,2,3'] - show posts with certain IDs (currently only one post type per category)
+    * [ic_add_post id='1'] - show a single post with the given ID ( must give post type if not post )
+    * [ic_add_posts showposts='5'] - limit number of posts (or override default setting)
+    * [ic_add_posts category='category-slug']  - Show posts within a specific category.  Uses slugs, can have multiple but separate by commas. 	 category-1,category2, etc (no spaces.)
+    * [ic_add_posts post_type='post-type'] - Show posts that are a specific post type (only one post type right now)
+    * [ic_add_posts tax='taxonomy' term='term'] - limit posts to those that exist in a taxonomy and have a specific term.  Both are required for either one to work
+    * [ic_add_posts template='template-in-theme-dir.php'] - In case you want to style your markup, add meta data, etc.  Each shortcode can reference a different template.  These templates must exist in the theme directory.
+    Or any combination above.
 
 == Screenshots ==
 
@@ -45,10 +47,12 @@ Shortcode usage:
 Q: What is the point of this plugin?.  
 A: Well, some of our clients wanted to output some posts in a specific page without fiddling with templates.  This plugin goes well page specific sidebars and giving you
 a more granular control of sidebars on specific categories/post-types etc.
+Q: How do I change the output template
+A: Simply copy the posts_loop_template.php to your theme directory and make changes as necessary. You can even rename it - but make sure to indicate that in the shortcode using the template='template_name.php'.  You can even use multiple layouts for each shortcode if you like.
 
 == Changelog ==
 
-
+1. 2012-06-07: Added single post or specific post capabilities.
 
 == Upgrade Notice ==
 
