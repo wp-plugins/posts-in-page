@@ -3,7 +3,7 @@
     Plugin name: Posts in Page
     Author: dgilfoy, ivycat
     Description: Add Posts in page
-    Version: 1.0.2
+    Version: 1.0.3
     
    Shortcode usage:
     [ic_add_posts]  - Add all posts to a page (limit to what number posts in wordpress is set to), essentially adds blog "page" to page.
