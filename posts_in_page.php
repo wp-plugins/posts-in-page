@@ -10,6 +10,7 @@
     [ic_add_posts post_type='post_type' ids='1,2,3'] - show posts with certain IDs (currently only one post type per category)
     [ic_add_post id='1'] - show a single post with the given ID ( must give post type if not post )
     [ic_add_posts showposts='5'] - limit number of posts (or override default setting)
+    [ic_add_posts orderby='title' order='ASC'] - orderby title - supports all WP orderby variables.  Order is optional, WP default 
     [ic_add_posts category='category-slug']  - Show posts within a specific category.  Uses slugs, can have multiple but separate by commas. category-1,category2, etc (no spaces.)
     [ic_add_posts post_type='post-type'] - Show posts that are a specific post type (only one post type right now)
     [ic_add_posts tax='taxonomy' term='term'] - limit posts to those that exist in a taxonomy and have a specific term.  Both are required for either one to work
@@ -35,7 +36,9 @@ class AddPostsToPage{
             'showposts' => 10,
             'tag' => false,
             'template' => false,
-            'ids' => false
+            'ids' => false,
+            'orderby' => false,
+            'order' => false
         ), $atts ) );
         self::set_args( $atts );
         return self::output_posts();
@@ -71,6 +74,10 @@ class AddPostsToPage{
             $post_ids = explode( ',', $atts['ids'] );
             $this->args['post_in'] = $post_ids;
             $this->args['posts_per_page'] = count( $post_ids );
+        }
+        if( $atts['orderby'] ){
+            $this->args['orderby'] = $atts['orderby'];
+            if( $atts['order'] ) $this->args['order'] = $atts['order'];
         }
         if( $atts['template'] ) $this->args['template'] = $atts['template'];
         if( $atts['category'] ){
