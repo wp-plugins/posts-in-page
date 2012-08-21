@@ -8,7 +8,7 @@
    Shortcode usage:
     [ic_add_posts]  - Add all posts to a page (limit to what number posts in WordPress is set to).  This essentially makes the page look like a blog.
     [ic_add_posts post_type='post_type' ids='1,2,3'] - show posts with certain IDs (currently only one post type per category)
-    [ic_add_post id='1'] - show a single post with the given ID ( must give post type if not post )
+    [ic_add_posts id='1'] - show a single post with the given ID ( must give post type if not post )
     [ic_add_posts showposts='5'] - limit number of posts (or override default setting)
     [ic_add_posts orderby='title' order='ASC'] - orderby title - supports all WordPress orderby variables.  Order is optional, WP default 
     [ic_add_posts category='category-slug']  - Show posts within a specific category.  Uses slugs, and can have multiple categories separate by commas. category-1,category2, etc (no spaces.)
