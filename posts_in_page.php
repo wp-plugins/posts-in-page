@@ -3,7 +3,7 @@
     Plugin name: Posts in Page
     Author: dgilfoy, ivycat, sewmyheadon
     Description: Easily add one or more posts to any page using simple shortcodes. Supports categories, tags, custom post types, custom taxonomies, and more.
-    Version: 1.0.4
+    Version: 1.0.5
     
    Shortcode usage:
     [ic_add_posts]  - Add all posts to a page (limit to what number posts in WordPress is set to).  This essentially makes the page look like a blog.
@@ -18,6 +18,9 @@
     Or any combination above.
 **/
 
+define( 'POSTSPAGE_DIR', dirname( __FILE__ ) );
+define( 'POSTPAGE_URL', str_replace( ABSPATH, site_url(), POSTSPAGE_DIR ) );
+
 class AddPostsToPage{
     
     protected $args;
@@ -25,11 +28,13 @@ class AddPostsToPage{
     public function __construct(){
         add_shortcode( 'ic_add_posts', array( &$this, 'posts_in_page' ) );
         add_shortcode( 'ic_add_post', array( &$this, 'post_in_page' ) );
+        add_action( 'admin_menu', array( &$this, 'plugin_page_init' ) );
     }
     
     public function posts_in_page( $atts ){
         extract( shortcode_atts( array(
             'category' => false,
+            'cats' => false,
             'post_type' => false,
             'tax' => false,
             'term' => false,
@@ -42,6 +47,24 @@ class AddPostsToPage{
         ), $atts ) );
         self::set_args( $atts );
         return self::output_posts();
+    }
+
+    public function plugin_page_init(){
+        if( !current_user_can( 'administrator' ) ) return;   
+        $hooks = array();
+        $hooks[] = add_options_page( __( 'Posts In Page' ), __( 'Posts In Page' ), 'read', 'posts_in_page', 
+            array( $this, 'plugin_page') );
+        foreach($hooks as $hook) {
+            add_action("admin_print_styles-{$hook}", array($this, 'load_assets'));
+        }
+    }
+
+    public function load_assets(){
+        wp_enqueue_style( 'postpagestyle', POSTPAGE_URL. '/assets/postpagehelp.css' );
+    }
+
+    public function plugin_page(){
+        require_once 'assets/posts_in_page_help_view.php';
     }
     
     protected function output_posts(){
@@ -56,9 +79,19 @@ class AddPostsToPage{
     
     public function post_in_page( $atts ){
         $args = array( 'post_type' => (  $atts['post_type'] ) ? $atts['post_type'] : 'post' );
-        if( $atts['id'] ) $args['post_in'] = array( $atts['id'] );
-        $args['posts_per_page'] = 1;
+        if( $atts['id'] ) {
+            $ids = explode( ',', $atts['id'] );
+            if( count( $ids ) > 1 ):
+                $args['post__in'] = $ids;
+                $args['posts_per_page'] = count( $ids );
+            else:
+                $args['p'] = $atts['id'];
+                $args['posts_per_page'] = 1;
+            endif;
+        }
+        
         $page_posts = new WP_Query( $args );
+        //fprint_r( $page_posts );
         $output = '';
         if( $page_posts->have_posts() ): while( $page_posts->have_posts()):
         $output .= self::add_template_part( $page_posts );
@@ -72,7 +105,7 @@ class AddPostsToPage{
         $this->args = array( 'post_type' => (  $atts['post_type'] ) ? $atts['post_type'] : 'post' );
         if($atts['ids'] ){
             $post_ids = explode( ',', $atts['ids'] );
-            $this->args['post_in'] = $post_ids;
+            $this->args['post__in'] = $post_ids;
             $this->args['posts_per_page'] = count( $post_ids );
         }
         if( $atts['orderby'] ){
@@ -83,6 +116,9 @@ class AddPostsToPage{
         if( $atts['category'] ){
             $cats = explode( ',', $atts['category'] );
             $this->args['category_name'] = ( count( $cats ) > 1 ) ? $cats : $atts['category'];
+        }elseif( $atts['cats'] ){
+            $cats = explode( ',', $atts['cats'] );
+            $this->args['category_name'] = ( count( $cats ) > 1 ) ? $cats : $atts['cats'];
         }
         if( $atts['tax'] ){
             if( $atts['term'] ){
