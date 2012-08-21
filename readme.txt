@@ -1,10 +1,12 @@
 === Posts in Page ===
-Contributors: dgilfoy, ivycat
+Contributors: dgilfoy, ivycat, sewmyheadon
+Donate link: http://www.ivycat.com/contribute/
 Tags: shortcode, pages, posts, custom post types
 Requires at least: 3.0
-Tested up to: 3.3.2
-Stable tag: 1.0.3
-
+Tested up to: 3.4.1
+Stable tag: trunk
+License: GPLv3 or later
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 ==Short Description ==
 
 Add posts loop inside page.
@@ -45,19 +47,33 @@ Shortcode usage:
 
 == Frequently Asked Questions ==
 
-Q: What is the point of this plugin?.  
-A: Well, some of our clients wanted to output some posts in a specific page without fiddling with templates.  This plugin goes well page specific sidebars and giving you
-a more granular control of sidebars on specific categories/post-types etc.
-Q: How do I change the output template
-A: Simply copy the posts_loop_template.php to your theme directory and make changes as necessary. You can even rename it - but make sure to indicate that in the shortcode using the template='template_name.php'.  You can even use multiple layouts for each shortcode if you like.
+= What is the point of this plugin? =
+
+Well, some of our clients wanted to output some posts in a specific page without fiddling with templates.  This plugin goes well page specific sidebars and giving you a more granular control of sidebars on specific categories/post-types etc.
+
+= How do I change the output template =
+
+Simply copy the posts_loop_template.php to your theme directory and make changes as necessary. 
+
+You can even rename it - but make sure to indicate that in the shortcode using the `template='template_name.php'`.  
+
+You can even use multiple layouts for each shortcode if you like.
 
 == Changelog ==
 
-1. 2012-06-07: Added single post or specific post capabilities.
+= 1.0.4 =
+* Minor housekeeping, added author, updated readme.txt.
+
+= 1.0.3 =
+* Added single post or specific post capabilities.
 
 == Upgrade Notice ==
 
-Latest versions mean latest security, latest features and the best time!
+= 1.0.4 =
+* Minor housekeeping, added author, updated readme.txt. No security or urgent changes.
+
+= 1.0.3 =
+* Added single post or specific post capabilities.
 
 == Road Map ==
 
