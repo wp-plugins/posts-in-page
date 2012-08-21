@@ -7,6 +7,7 @@ Tested up to: 3.4.1
 Stable tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
+
 ==Short Description ==
 
 Add posts loop inside page.
@@ -26,7 +27,7 @@ This is a minimal plugin, function over form.  If you would like to extend it, o
 You can install from within WordPress using the Plugin/Add New feature, or if you wish to manually install:
 
 1. Download the plugin.
-1. Upload the entire ic_posts_in_page directory to your plugins folder 
+1. Upload the entire `ic_posts_in_page` directory to your plugins folder 
 1. Activate the plugin in your WordPress plugin page
 1. Start embedding your posts in whatever pages you like.
 
@@ -34,22 +35,22 @@ You can install from within WordPress using the Plugin/Add New feature, or if yo
 
 Shortcode usage:
 
-* [ic_add_posts]  - Add all posts to a page (limit to what number posts in WordPress is set to), essentially adds blog "page" to page.
-* [ic_add_posts post_type='post_type' ids='1,2,3'] - show posts with certain IDs (currently only one post type per category)
-* [ic_add_posts id='1'] - show a single post with the given ID ( must give post type if not post )
-* [ic_add_posts showposts='5'] - limit number of posts (or override default setting)
-* [ic_add_posts orderby='title' order='ASC'] - orderby title - supports all WP orderby variables.  Order is optional, WP default 
-* [ic_add_posts category='category-slug']  - Show posts within a specific category.  Uses slugs, can have multiple but separate by commas. 	 category-1,category2, etc (no spaces.)
-* [ic_add_posts tag='tag-slug']  - Show posts using a specific tag.  Like categories, it uses slugs, and can accommodate multiple tags separate by commas. 	 tag-1,tag-2, etc (no spaces.)
-* [ic_add_posts post_type='post-type'] - Show posts that are a specific post type (only one post type right now)
-* [ic_add_posts tax='taxonomy' term='term'] - limit posts to those that exist in a taxonomy and have a specific term.  Both are required for either one to work
-* [ic_add_posts template='template-in-theme-dir.php'] - In case you want to style your markup, add meta data, etc.  Each shortcode can reference a different template.  These templates must exist in the theme directory.
+* `[ic_add_posts]`  - Add all posts to a page (limit to what number posts in WordPress is set to), essentially adds blog "page" to page.
+* `[ic_add_posts post_type='post_type' ids='1,2,3']` - show posts with certain IDs (currently only one post type per category)
+* `[ic_add_posts id='1']` - show a single post with the given ID ( must give post type if not post )
+* `[ic_add_posts showposts='5']` - limit number of posts (or override default setting)
+* `[ic_add_posts orderby='title' order='ASC']` - orderby title - supports all WP orderby variables.  Order is optional, WP default 
+* `[ic_add_posts category='category-slug']` - Show posts within a specific category.  Uses slugs, can have multiple but separate by commas. 	 category-1,category2, etc (no spaces.)
+* `[ic_add_posts tag='tag-slug']`  - Show posts using a specific tag.  Like categories, it uses slugs, and can accommodate multiple tags separate by commas. 	 tag-1,tag-2, etc (no spaces.)
+* `[ic_add_posts post_type='post-type']` - Show posts that are a specific post type (only one post type right now)
+* `[ic_add_posts tax='taxonomy' term='term']` - limit posts to those that exist in a taxonomy and have a specific term.  Both are required for either one to work
+* `[ic_add_posts template='template-in-theme-dir.php']` - In case you want to style your markup, add meta data, etc.  Each shortcode can reference a different template.  These templates must exist in the theme directory.
 
 Or any combination above.
 
 == Screenshots ==
 
-1. Embed a shortcode into a page and it'll automatically pull in the post(s) you need.
+1. Embed a shortcode into a page and it will automatically pull in the post(s) you need.
 
 == Frequently Asked Questions ==
 
