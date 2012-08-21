@@ -1,9 +1,12 @@
 <?php
 /**
     Plugin name: Posts in Page
-    Author: dgilfoy, ivycat, sewmyheadon
+    Plugin URI: http://wordpress.org/extend/plugins/posts-in-page/
+    Author: IvyCat Web Services
+    Author URI: http://www.ivycat.com
     Description: Easily add one or more posts to any page using simple shortcodes. Supports categories, tags, custom post types, custom taxonomies, and more.
-    Version: 1.0.5
+    Version: 1.0.6
+    License: GPLv3
     
    Shortcode usage:
     [ic_add_posts]  - Add all posts to a page (limit to what number posts in WordPress is set to).  This essentially makes the page look like a blog.

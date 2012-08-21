@@ -70,6 +70,9 @@ You can even use multiple layouts for each shortcode if you like.
 
 == Changelog ==
 
+= 1.0.6 =
+* More plugin housekeeping.
+
 = 1.0.4 =
 * Minor housekeeping, added author, updated readme.txt.
 
