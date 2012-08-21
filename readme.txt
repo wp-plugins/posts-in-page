@@ -12,30 +12,32 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Add posts loop inside page.
 
 ==Description==
-Use a shortcode to add posts inside of a wordpress page.  Supports taxonomies, categories, tags and even custom post types.
+
+Easily add one or more posts to any page using simple shortcodes. Supports categories, tags, custom post types, custom taxonomies, and more.
 
 == Notes ==
 
-Plugin is depending upon theme styling.  Version 1.0 of this plugin does not contain native styles.  If you are curious as to the reasoning behind this, check out:  
+Plugin is depending upon theme styling.  Version 1.0 of this plugin does not contain native styles. 
 
-http://nimbu.in/p/wordcampseattle/
-
-This is a minimal plugin, function over form.  If you would like to extend it, or would like us to extend it in later versions, feel free to contact us at admins@ivycat.com.  We do custom plugins as well as upgrades and features for existing plugins.
+This is a minimal plugin, function over form.  If you would like to extend it, or would like us to extend it in later versions, please post feature suggestions in the plugin's [support forum](http://wordpress.org/support/plugin/posts-in-page) or [contact us](http://www.ivycat.com/contact/).
 
 == Installation ==
 
+You can install from within WordPress using the Plugin/Add New feature, or if you wish to manually install:
+
+1. Download the plugin.
 1. Upload the entire ic_posts_in_page directory to your plugins folder 
-2. Click Install Plugin in your WordPress plugin page
-3. ??? Profit ???
+1. Activate the plugin in your WordPress plugin page
+1. Start embedding your posts in whatever pages you like.
 
 == Usage ==
 
 Shortcode usage:
-*	[ic_add_posts]  - Add all posts to a page (limit to what number posts in wordpress is set to), essentially adds blog "page" to page.
+*	[ic_add_posts]  - Add all posts to a page (limit to what number posts in WordPress is set to), essentially adds blog "page" to page.
 *	[ic_add_posts post_type='post_type' ids='1,2,3'] - show posts with certain IDs (currently only one post type per category)
-*	[ic_add_post id='1'] - show a single post with the given ID ( must give post type if not post )
-*    [ic_add_posts showposts='5'] - limit number of posts (or override default setting)
-*    [ic_add_posts orderby='title' order='ASC'] - orderby title - supports all WP orderby variables.  Order is optional, WP default 
+*	[ic_add_posts id='1'] - show a single post with the given ID ( must give post type if not post )
+*   [ic_add_posts showposts='5'] - limit number of posts (or override default setting)
+*   [ic_add_posts orderby='title' order='ASC'] - orderby title - supports all WP orderby variables.  Order is optional, WP default 
 *	[ic_add_posts category='category-slug']  - Show posts within a specific category.  Uses slugs, can have multiple but separate by commas. 	 category-1,category2, etc (no spaces.)
 *	[ic_add_posts post_type='post-type'] - Show posts that are a specific post type (only one post type right now)
 *	[ic_add_posts tax='taxonomy' term='term'] - limit posts to those that exist in a taxonomy and have a specific term.  Both are required for either one to work
@@ -44,12 +46,15 @@ Shortcode usage:
 
 == Screenshots ==
 
+1. Embed a shortcode into a page and it'll automatically pull in the post(s) you need.
 
 == Frequently Asked Questions ==
 
 = What is the point of this plugin? =
 
-Well, some of our clients wanted to output some posts in a specific page without fiddling with templates.  This plugin goes well page specific sidebars and giving you a more granular control of sidebars on specific categories/post-types etc.
+Some of our clients wanted to output some posts in a specific page without fiddling with templates.
+
+This plugin goes well with our [Simple Page Specific Sidebars](http://wordpress.org/extend/plugins/page-specific-sidebars/) plugin, and gives you more granular control of sidebars on specific categories, post-types, etc.
 
 = How do I change the output template =
 
