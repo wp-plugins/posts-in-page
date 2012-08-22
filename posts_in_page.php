@@ -75,7 +75,7 @@ class AddPostsToPage{
     }
 
     public function plugin_page(){
-        //require_once 'assets/posts_in_page_help_view.php';
+        require_once 'assets/posts_in_page_help_view.php';
     }
     
     protected function output_posts(){
