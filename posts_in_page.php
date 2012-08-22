@@ -5,7 +5,7 @@
     Author: IvyCat Web Services
     Author URI: http://www.ivycat.com
     Description: Easily add one or more posts to any page using simple shortcodes. Supports categories, tags, custom post types, custom taxonomies, and more.
-    Version: 1.0.6
+    Version: 1.0.7
     License: GPLv3
     
    Shortcode usage:
@@ -22,7 +22,7 @@
 **/
 
 define( 'POSTSPAGE_DIR', dirname( __FILE__ ) );
-define( 'POSTPAGE_URL', str_replace( ABSPATH, site_url(), POSTSPAGE_DIR ) );
+define( 'POSTPAGE_URL', str_replace( ABSPATH, site_url( '/' ), POSTSPAGE_DIR ) );
 
 class AddPostsToPage{
     
@@ -32,8 +32,15 @@ class AddPostsToPage{
         add_shortcode( 'ic_add_posts', array( &$this, 'posts_in_page' ) );
         add_shortcode( 'ic_add_post', array( &$this, 'post_in_page' ) );
         add_action( 'admin_menu', array( &$this, 'plugin_page_init' ) );
+        add_filter( 'plugin_action_links_'. plugin_basename( __FILE__ ), array( &$this, 'plugin_action_links' ), 10, 4 );
     }
     
+    public function plugin_action_links( $actions, $plugin_file, $plugin_data, $context ) {
+        if ( is_plugin_active( $plugin_file ) )
+            $actions[] = '<a href="' . admin_url('options-general.php?page=posts_in_page') . '">' . __( ' Help', 'posts_in_page' ) . '</a>';
+        return $actions;
+    }
+  
     public function posts_in_page( $atts ){
         extract( shortcode_atts( array(
             'category' => false,
@@ -63,7 +70,8 @@ class AddPostsToPage{
     }
 
     public function load_assets(){
-        wp_enqueue_style( 'postpagestyle', POSTPAGE_URL. '/assets/postpagehelp.css' );
+        wp_enqueue_style( 'postpagestyle', POSTPAGE_URL. '/assets/post-page_styles.css' );
+        wp_enqueue_script( 'postpagescript', POSTPAGE_URL. '/assets/post-page_scripts.js' );
     }
 
     public function plugin_page(){

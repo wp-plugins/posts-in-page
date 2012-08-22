@@ -70,6 +70,9 @@ You can even use multiple layouts for each shortcode if you like.
 
 == Changelog ==
 
+= 1.0.7 =
+* Added Help Page under Setting in WP Dashboard.
+
 = 1.0.6 =
 * More plugin housekeeping.
 
