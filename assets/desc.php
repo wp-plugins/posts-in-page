@@ -6,7 +6,7 @@
             <div class="inside">
                 <div class="inside_wrap">
                     <h4>Questions, bugs, or great ideas?</h4>
-                    <p><a href="http://wordpress.org/support/plugin/page-specific-sidebars">Visit our plugin support page</a>.</p>
+                    <p><a href="http://wordpress.org/support/plugin/posts-in-page">Visit our plugin support page</a>.</p>
                 </div>
             </div>
         </div>
