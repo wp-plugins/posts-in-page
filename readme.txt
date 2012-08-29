@@ -70,6 +70,10 @@ You can even use multiple layouts for each shortcode if you like.
 
 == Changelog ==
 
+= 1.0.8 =
+* Code cleanup & indentation
+* Added comments and notes to output template file: `posts_loop_template.php`
+
 = 1.0.7 =
 * Added Help Page under Setting in WP Dashboard.
 
