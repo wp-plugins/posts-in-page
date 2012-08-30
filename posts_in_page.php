@@ -5,7 +5,7 @@
     Author: IvyCat Web Services
     Author URI: http://www.ivycat.com
     Description: Easily add one or more posts to any page using simple shortcodes. Supports categories, tags, custom post types, custom taxonomies, and more.
-    Version: 1.0.8
+    Version: 1.0.9
     License: GPLv3
     
    Shortcode usage:

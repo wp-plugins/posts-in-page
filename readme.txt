@@ -70,6 +70,9 @@ You can even use multiple layouts for each shortcode if you like.
 
 == Changelog ==
 
+= 1.0.9 =
+* Fixed template bug introduced by comments.
+
 = 1.0.8 =
 * Code cleanup & indentation
 * Added comments and notes to output template file: `posts_loop_template.php`
