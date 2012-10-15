@@ -6,12 +6,12 @@
  *  Description: Easily add one or more posts to any page using simple shortcodes. Supports categories, tags, custom post types, custom taxonomies, and more.
  *  Author: IvyCat Web Services
  *  Author URI: http://www.ivycat.com
- *  version: 1.0.10
+ *  version: 1.1.1
  *  License: GNU General Public License v2.0
  *  License URI: http://www.gnu.org/licenses/gpl-2.0.html
  
  ------------------------------------------------------------------------
-	IvyCat AJAX Slider, Copyright 2012 IvyCat, Inc. (admins@ivycat.com)
+	IvyCat Posts in Page, Copyright 2012 IvyCat, Inc. (admins@ivycat.com)
 	
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -29,159 +29,92 @@
 
  */
 
-define( 'POSTSPAGE_DIR', dirname( __FILE__ ) );
-define( 'POSTPAGE_URL', str_replace( ABSPATH, site_url( '/' ), POSTSPAGE_DIR ) );
+if ( !function_exists( 'add_action' ) )
+	wp_die( 'You are trying to access this file in a manner not allowed.', 'Direct Access Forbidden', array( 'response' => '403' ) );
 
-class AddPostsToPage{
+if ( ! defined( 'POSTSPAGE_DIR' ) )
+	define( 'POSTSPAGE_DIR', plugin_dir_path( __FILE__ ) );
+	
+if ( ! defined( 'POSTPAGE_URL' ) )
+	define( 'POSTPAGE_URL', plugin_dir_url( __FILE__ ) );
+
+require_once 'lib/page_posts.php';
+
+class ICAddPostsToPage {
     
-    protected $args;
-    
-    public function __construct(){
+    public function __construct( ) {
         add_shortcode( 'ic_add_posts', array( &$this, 'posts_in_page' ) );
         add_shortcode( 'ic_add_post', array( &$this, 'post_in_page' ) );
         add_action( 'admin_menu', array( &$this, 'plugin_page_init' ) );
         add_filter( 'plugin_action_links_'. plugin_basename( __FILE__ ), array( &$this, 'plugin_action_links' ), 10, 4 );
     }
     
+	/**
+	 * 	Add settings link on plugins page.
+	 */
     public function plugin_action_links( $actions, $plugin_file, $plugin_data, $context ) {
         if ( is_plugin_active( $plugin_file ) )
             $actions[] = '<a href="' . admin_url('options-general.php?page=posts_in_page') . '">' . __( ' Help', 'posts_in_page' ) . '</a>';
         return $actions;
     }
   
-    public function posts_in_page( $atts ){
-        extract( shortcode_atts( array(
-            'category' => false,
-            'cats' => false,
-            'post_type' => false,
-            'tax' => false,
-            'term' => false,
-            'showposts' => 10,
-            'tag' => false,
-            'template' => false,
-            'ids' => false,
-            'orderby' => false,
-            'order' => false
-        ), $atts ) );
-        self::set_args( $atts );
-        return self::output_posts();
+	/**
+	 * 	Main Shortcode
+	 *
+	 * 	@param array $atts An array of shortcode parameters.  None required
+	 */
+    public function posts_in_page( $atts ) {
+        $posts = new ICPagePosts( $atts );
+		return $posts->output_posts( );
     }
-
-    public function plugin_page_init(){
-        if( !current_user_can( 'administrator' ) ) return;   
-        $hooks = array();
+	
+	/**
+	 * 	Depreciated Shortcode (routing to posts in page function now )
+	 *
+	 * 	@todo Remove this depreciated function.
+	 */
+	public function post_in_page( $atts ) {
+        return self::posts_in_page( $atts );
+	}
+	
+	/**
+	 *  Init Plugin, add menu page and setup hooks to load assets on the plugin options page
+	 */
+    public function plugin_page_init() {
+        if( !current_user_can( 'administrator' ) )
+			return;
+		
+        $hooks = array( );
         $hooks[] = add_options_page( __( 'Posts In Page' ), __( 'Posts In Page' ), 'read', 'posts_in_page', 
-            array( $this, 'plugin_page') );
-        foreach($hooks as $hook) {
-            add_action("admin_print_styles-{$hook}", array($this, 'load_assets'));
+            array( $this, 'plugin_page' ) );
+		
+        foreach ( $hooks as $hook ) {
+            add_action( "admin_print_styles-{$hook}", array( $this, 'load_assets' ) );
         }
     }
 
-    public function load_assets(){
+	/**
+	 * Enqueue Plugin Assets (Scripts and Styles)
+	 */
+    public function load_assets( ) {
         wp_enqueue_style( 'postpagestyle', POSTPAGE_URL. '/assets/post-page_styles.css' );
         wp_enqueue_script( 'postpagescript', POSTPAGE_URL. '/assets/post-page_scripts.js' );
     }
-
-    public function plugin_page(){
+	
+	/**
+	 * Plugin Setting page - includes view for the page
+	 */
+    public function plugin_page( ) {
         require_once 'assets/posts_in_page_help_view.php';
     }
     
-    protected function output_posts(){
-        $page_posts = new WP_Query( $this->args );
-        $output = '';
-        if( $page_posts->have_posts() ): while( $page_posts->have_posts()):
-        $output .= self::add_template_part( $page_posts );
-        endwhile; endif;
-        wp_reset_postdata();
-        return $output;
-    }
-    
-    public function post_in_page( $atts ){
-        $args = array( 'post_type' => (  $atts['post_type'] ) ? $atts['post_type'] : 'post' );
-        if( $atts['id'] ) {
-            $ids = explode( ',', $atts['id'] );
-            if( count( $ids ) > 1 ):
-                $args['post__in'] = $ids;
-                $args['posts_per_page'] = count( $ids );
-            else:
-                $args['p'] = $atts['id'];
-                $args['posts_per_page'] = 1;
-            endif;
-        }
-        
-        $page_posts = new WP_Query( $args );
-        //fprint_r( $page_posts );
-        $output = '';
-        if( $page_posts->have_posts() ): while( $page_posts->have_posts()):
-        $output .= self::add_template_part( $page_posts );
-        endwhile; endif;
-        wp_reset_postdata();
-        return $output;
-    }
-    
-    protected function set_args( $atts ){
-        global $wp_query;
-        $this->args = array( 'post_type' => (  $atts['post_type'] ) ? $atts['post_type'] : 'post' );
-		$this->args['post_status'] = 'publish';
-        if($atts['ids'] ){
-            $post_ids = explode( ',', $atts['ids'] );
-            $this->args['post__in'] = $post_ids;
-            $this->args['posts_per_page'] = count( $post_ids );
-        }
-        if( $atts['orderby'] ){
-            $this->args['orderby'] = $atts['orderby'];
-        }
-		if( $atts['order'] )
-			$this->args['order'] = $atts['order'];
-			
-        if( $atts['template'] ) $this->args['template'] = $atts['template'];
-        if( $atts['category'] ){
-            $cats = explode( ',', $atts['category'] );
-            $this->args['category_name'] = ( count( $cats ) > 1 ) ? $cats : $atts['category'];
-        }elseif( $atts['cats'] ){
-            $cats = explode( ',', $atts['cats'] );
-            $this->args['category_name'] = ( count( $cats ) > 1 ) ? $cats : $atts['cats'];
-        }
-        if( $atts['tax'] ){
-            if( $atts['term'] ){
-                $terms = explode( ',', $atts['term'] );
-                $this->args['tax_query'] = array(
-                    array( 'taxonomy' => $atts['tax'], 'field' => 'slug', 'terms' => ( count( $terms ) > 1 ) ? $terms : $atts['term'] )
-                );
-            }
-        }
-        if( $atts['tag'] ){
-            $tags = explode( ',', $atts['category'] );
-            $this->args['tag'] = ( count( $tags ) > 1 ) ? $tags : $atts['tag'];
-        }
-        if( !$this->args['posts_per_page'] ) $this->args[ 'posts_per_page' ] = $atts['showposts'];
-        if( $wp_query->query_vars['page'] > 1 ){
-            $this->args['paged'] = $wp_query->query_vars['page'];
-        }
-    }
-    
-    protected function has_theme_template(){
-        $template_file = ( $this->args['template'] ) ? self::current_theme_path()  . '/' . $this->args['template'] : self::current_theme_path() . '/posts_loop_template.php';
-        
-        return ( file_exists( $template_file ) ) ? $template_file : false;
-    }
-    
-   protected function add_template_part( $ic_posts, $singles=false ){
-        if( $singles ){
-            setup_postdata( $ic_posts );
-        }else{
-            $ic_posts->the_post();
-        }
-        ob_start();
-        require ( $file_path = self::has_theme_template() ) ? str_replace( site_url(), '', $file_path ) : 'posts_loop_template.php';
-        $output .= ob_get_contents();
-        return ob_get_clean();
-   }
-    
-    protected function current_theme_path(){
-        $theme_data = explode( '/', get_bloginfo( 'stylesheet_directory' ) );
-        $theme_path = get_theme_root();
-        return $theme_path . '/' . $theme_data[ count( $theme_data ) -1 ];
-    }
-    
-} new AddPostsToPage();
+}
+
+/**
+* Instantiate the Plugin - called using the plugins_loaded action hook.
+*/
+function init_ic_posts_in_page( ) {
+	new ICAddPostsToPage( );
+}
+
+add_action( 'plugins_loaded', 'init_ic_posts_in_page' );
