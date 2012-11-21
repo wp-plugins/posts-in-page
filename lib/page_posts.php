@@ -13,7 +13,6 @@ class ICPagePosts {
 		'post_status'      => 'publish',
 		'orderby'            => 'date',
 		'order'                => 'DESC',
-		'posts_per_page' => 10,
 		'template'          => false
 	); // set defaults for wp_parse_args
 	
@@ -28,16 +27,32 @@ class ICPagePosts {
 	 */
 	public function output_posts() {
 		if ( !$this->args ) return '';
-        $page_posts = new WP_Query( $this->args ); // New WP_Query object 
+        $page_posts = apply_filters( 'posts_in_page_results', new WP_Query( $this->args ) ); // New WP_Query object 
         $output = '';
         if ( $page_posts->have_posts( ) ):
 			while ( $page_posts->have_posts( ) ):
 			$output .= self::add_template_part( $page_posts );
 			endwhile;
+			$output .= '<div class="pip-nav">' . apply_filters( 'posts_in_page_paginate',
+				$this->paginate_links( $page_posts )
+			) . '</div>';
 		endif;
         wp_reset_postdata( );
         return $output;
     }
+	
+	protected function paginate_links( $posts ){
+		global $wp_query;
+		$page_url = home_url( '/' . $wp_query->post->post_name . '/' );
+		$page = isset( $_GET['page'] ) ? $_GET['page'] : 1;
+		$total_pages = $posts->max_num_pages;
+		$per_page = $posts->query_vars['posts_per_page'];
+		$curr_page = ( isset( $posts->query_vars['paged'] ) && $posts->query_vars['paged'] > 0  ) ? $posts->query_vars['paged'] : 1;
+		//echo '<pre>' . print_r( $posts, true ) . '</pre>';
+		$prev = ( $curr_page && $curr_page > 1 ) ? '<li><a href="'.$page_url.'?page='. ( $curr_page-1 ).'">Previous</a></li>' : '';
+		$next = ( $curr_page && $curr_page < $total_pages ) ? '<li><a href="'.$page_url.'?page='. ( $curr_page+1 ).'">Next</a></li>' : '';
+		return '<ul>' . $prev . $next . '</ul>';
+	}
    
 	/**
 	 *	Build additional Arguments for the WP_Query object
@@ -46,7 +61,7 @@ class ICPagePosts {
 	 */
     protected function set_args( $atts ) {
         global $wp_query;
-		
+		$this->args['posts_per_page'] = get_option( 'posts_per_page' );
 		// parse the arguments using the defaults
         $this->args = wp_parse_args( $atts, $this->args );
 		
@@ -98,6 +113,16 @@ class ICPagePosts {
         if ( isset( $wp_query->query_vars['page'] ) &&  $wp_query->query_vars['page'] > 1 ) {
             $this->args['paged'] = $wp_query->query_vars['page'];
         }
+		
+		if ( ! isset( $this->args['ignore_sticky_posts'] ) ) {
+			$this->args['post__not_in'] = get_option( 'sticky_posts' );
+		}
+		
+		if ( ! isset( $this->args['ignore_sticky_posts'] ) ) {
+			$this->args['post__not_in'] = get_option( 'sticky_posts' );
+		}
+		
+		$this->args = apply_filters( 'posts_in_page_args', $this->args );
     }
     
 	/**
@@ -126,10 +151,12 @@ class ICPagePosts {
         }
 		$output = '';
         ob_start( );
+		$output .= apply_filters( 'posts_in_page_pre_loop', '' );
         require ( $file_path = self::has_theme_template( ) )
 			? $file_path // use template file in theme
 			: POSTSPAGE_DIR . '/posts_loop_template.php'; // use default plugin template file
         $output .= ob_get_contents( );
+		$output .= apply_filters( 'posts_in_page_post_loop', '' );
         return ob_get_clean( );
    }
 

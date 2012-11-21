@@ -6,7 +6,7 @@
  *  Description: Easily add one or more posts to any page using simple shortcodes. Supports categories, tags, custom post types, custom taxonomies, and more.
  *  Author: IvyCat Web Services
  *  Author URI: http://www.ivycat.com
- *  version: 1.1.1
+ *  version: 1.2.1
  *  License: GNU General Public License v2.0
  *  License URI: http://www.gnu.org/licenses/gpl-2.0.html
  
@@ -55,7 +55,7 @@ class ICAddPostsToPage {
     public function plugin_action_links( $actions, $plugin_file, $plugin_data, $context ) {
         if ( is_plugin_active( $plugin_file ) )
             $actions[] = '<a href="' . admin_url('options-general.php?page=posts_in_page') . '">' . __( ' Help', 'posts_in_page' ) . '</a>';
-        return $actions;
+        return apply_filters( 'post_in_page_actions', $actions );
     }
   
 	/**
@@ -69,7 +69,7 @@ class ICAddPostsToPage {
     }
 	
 	/**
-	 * 	Depreciated Shortcode (routing to posts in page function now )
+	 * 	Deprecated Shortcode (routing to posts in page function now )
 	 *
 	 * 	@todo Remove this depreciated function.
 	 */
@@ -81,7 +81,7 @@ class ICAddPostsToPage {
 	 *  Init Plugin, add menu page and setup hooks to load assets on the plugin options page
 	 */
     public function plugin_page_init() {
-        if( !current_user_can( 'administrator' ) )
+        if ( ! current_user_can( 'administrator' ) )
 			return;
 		
         $hooks = array( );
