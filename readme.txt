@@ -3,8 +3,8 @@ Contributors: dgilfoy, ivycat, sewmyheadon
 Donate link: http://www.ivycat.com/contribute/
 Tags: shortcode, pages, posts, custom post types
 Requires at least: 3.0
-Tested up to: 3.4.2
-Stable tag: 1.2.1
+Tested up to: 3.5.1
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,6 +52,7 @@ To 'pull' posts into a page, you can either:
 * `[ic_add_posts tax='taxonomy' term='term']` - limit posts to those that exist in a taxonomy and have a specific term.  Both are required for either one to work
 * `[ic_add_posts template='template-in-theme-dir.php']` - In case you want to style your markup, add meta data, etc.  Each shortcode can reference a different template.  These templates must exist in the theme directory.
 * `[ic_add_posts ignore_sticky_posts='no']` - Show sticky posts too (they're ignored by default).
+* `[ic_add_posts paginate='yes']` - use pagination links (off by default)
 
 Or any combination of the above.
 
@@ -76,9 +77,9 @@ Alright, now lets say that you want to pull in all posts from two categories int
 Now, you're ambitious and want to try something complex.  Let's say you've got a page called _Plugins Are Awesome_ and, in it, you want to pull in posts that match the following criteria:
 
 * posts from a custom post type called _Testimonials_,
-* posts that are in the _Testimonial Type_ custom taxonomy using the term _Customer_
+* posts that are in the _Testimonial Type_ custom taxonomy using the term _Customer_,
 * you want to display six testimonials per page,
-* you'd like them displayed in ascending order
+* you'd like them displayed in ascending order,
 * finally, you've created a custom template to use in presenting these posts and named it `my-posts-in-page-template.php`
 
 Your shortcode might look like this:
@@ -126,6 +127,10 @@ Not likely, but let us know if it does; then we'll know we have something specia
 
 == Changelog ==
 
+= 1.2.2 = 
+* Added pagination, tweaked to turn off by default.
+* Bug fixes.
+
 = 1.2.1 =
 * Added code to allow ignoring, or showing of sticky posts.  By default, sticky posts are ignored, but can be re-enabled using the shortcode `[ic_add_posts ignore_sticky_posts='no']`.
 
@@ -134,7 +139,6 @@ Not likely, but let us know if it does; then we'll know we have something specia
 * Added post pagination
 * Plugin now honors default post reading settings under Settings/Reading in the WordPress Dashboard.
 * Improved and simplified documentation.
-* Added filters & hooks (documentation coming)
 
 = 1.1.1 =
 * Code maintenance, fix for category bug, also added ability for multiple post types per shortcode.
@@ -165,6 +169,9 @@ Not likely, but let us know if it does; then we'll know we have something specia
 * Added single post or specific post capabilities.
 
 == Upgrade Notice ==
+
+= 1.2.2 =
+* Small bug fixes for tags, pagination; not critical.
 
 = 1.2.1 =
 * Small feature update, not critical.
