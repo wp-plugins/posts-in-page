@@ -1,5 +1,5 @@
 === Posts in Page ===
-Contributors: dgilfoy, ivycat, sewmyheadon
+Contributors: sewmyheadon, ivycat, dgilfoy
 Donate link: http://www.ivycat.com/contribute/
 Tags: shortcode, pages, posts, custom post types
 Requires at least: 3.0
