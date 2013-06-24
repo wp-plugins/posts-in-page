@@ -1,17 +1,17 @@
 <?php
 
-/**
- *  Plugin Name: Posts in Page
- *  Plugin URI: http://wordpress.org/extend/plugins/posts-in-page/
- *  Description: Easily add one or more posts to any page using simple shortcodes. Supports categories, tags, custom post types, custom taxonomies, and more.
- *  Author: IvyCat Web Services
- *  Author URI: http://www.ivycat.com
- *  version: 1.2.2
- *  License: GNU General Public License v2.0
- *  License URI: http://www.gnu.org/licenses/gpl-2.0.html
+/*
+ 	Plugin Name: Posts in Page
+ 	Plugin URI: http://www.ivycat.com/wordpress/wordpress-plugins/posts-in-page/
+ 	Description: Easily add one or more posts to any page using simple shortcodes. Supports categories, tags, custom post types, custom taxonomies, and more.
+ 	Author: IvyCat Web Services
+ 	Author URI: http://www.ivycat.com
+ 	version: 1.2.3
+ 	License: GNU General Public License v2.0
+ 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
  
  ------------------------------------------------------------------------
-	IvyCat Posts in Page, Copyright 2012 -2013 IvyCat, Inc. (admins@ivycat.com)
+	IvyCat Posts in Page, Copyright 2013 IvyCat, Inc. (admins@ivycat.com)
 	
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by

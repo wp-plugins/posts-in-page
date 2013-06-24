@@ -4,7 +4,7 @@ Donate link: http://www.ivycat.com/contribute/
 Tags: shortcode, pages, posts, custom post types
 Requires at least: 3.0
 Tested up to: 3.5.1
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -127,6 +127,9 @@ Not likely, but let us know if it does; then we'll know we have something specia
 
 == Changelog ==
 
+= 1.2.3 = 
+* Added minor doc tweaks.
+
 = 1.2.2 = 
 * Added pagination, tweaked to turn off by default.
 * Bug fixes.
@@ -169,6 +172,9 @@ Not likely, but let us know if it does; then we'll know we have something specia
 * Added single post or specific post capabilities.
 
 == Upgrade Notice ==
+
+= 1.2.3 = 
+* Housekeeping only; not urgent.
 
 = 1.2.2 =
 * Small bug fixes for tags, pagination; not critical.
